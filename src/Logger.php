@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /**
  * Php library to create logs easily and store them in Json format.
  * 
@@ -8,9 +8,9 @@
  * @author     Josantonius - info@josantonius.com
  * @copyright  Copyright (c) 2017 JST PHP Framework
  * @license    https://opensource.org/licenses/MIT - The MIT License (MIT)
- * @version    1.0.0
+ * @version    1.1.0
  * @link       https://github.com/Josantonius/PHP-Logger
- * @since      File available since 1.0.0 - Update: 2017-01-21
+ * @since      File available since 1.0.0 - Update: 2017-01-30
  */
 
 namespace Josantonius\Logger;
@@ -109,24 +109,23 @@ class Logger {
      *
      * @return bool
      */
-    public function __construct(string $path      = null, 
-                                string $filename  = null, 
-                                int    $logNumber = 200,
-                                string $ip        = null,
-                                array  $states    = null): bool {
+    public function __construct($path = null, $filename = null, $logNumber = 200,
+                                                    $ip = null, $states    = null) {
 
-        static::$path      = $path ?? $_SERVER['DOCUMENT_ROOT'] . '/log/';
-        static::$filename  = $filename . '.jsond' ?? 'logs.jsond';
+        $defaultPath = $_SERVER['DOCUMENT_ROOT'] . '/log/';
+
+        static::$path      = (!is_null($path))     ? $path     : $defaultPath;
+        static::$filename  = (!is_null($filename)) ? $filename : 'logs';
+        static::$filename .= '.jsond';
         static::$filepath  = static::$path . static::$filename;
         static::$logNumber = $logNumber;
 
-        static::$log['ip']          = $ip ?? $_SERVER['REMOTE_ADDR'] ?? 'Unknown';
-
-        static::$log['uri']         = $_SERVER['REQUEST_URI']        ?? 'Unknown';
-        static::$log['referer']     = $_SERVER['HTTP_REFERER']       ?? 'Unknown';
-        static::$log['remote-port'] = $_SERVER['REMOTE_PORT']        ?? 'Unknown';
-        static::$log['ip-server']   = $_SERVER['SERVER_ADDR']        ?? 'Unknown';
-        static::$log['user-agent']  = $_SERVER['HTTP_USER_AGENT']    ?? 'Unknown';
+        static::$log['ip']          = (isset($ip)) ? $ip : $_SERVER['REMOTE_ADDR'];
+        static::$log['uri']         = $_SERVER['REQUEST_URI'];
+        static::$log['referer']     = $_SERVER['HTTP_REFERER'];
+        static::$log['remote-port'] = $_SERVER['REMOTE_PORT'];
+        static::$log['ip-server']   = $_SERVER['SERVER_ADDR'];
+        static::$log['user-agent']  = $_SERVER['HTTP_USER_AGENT'];
 
         $defaultStates  = [ 
             'is_active' => 1,
@@ -137,7 +136,7 @@ class Logger {
             'fatal'     => 1,
         ];  
 
-        static::$states = $states ?? $defaultStates;
+        static::$states = (isset($states)) ? $states : $defaultStates;
 
         register_shutdown_function(array($this, 'shutdown'));
 
@@ -194,13 +193,12 @@ class Logger {
      *
      * @return bool
      */
-    public static function save(string $type,    int $state, string $code, 
-                                string $message, int $line,  string $file, 
-                                array  $data = null): bool {
+    public static function save($type, $state, $code, $message, 
+                                        $line, $file, $data = null) {
 
         $type = strtolower($type); 
 
-        $status = static::$states[$type] ?? false;
+        $status = (isset(static::$states[$type])) ? static::$states[$type] : false;
 
         if (!isset($status) || !$status || !static::$states['is_active']) {
 
@@ -244,7 +242,7 @@ class Logger {
      * @throws LoggerException → could not write to file
      * @return bool
      */
-    public static function storeLogs(): bool {
+    public static function storeLogs() {
 
         if (static::$counterLogs === 0) {
 
@@ -283,7 +281,7 @@ class Logger {
      *
      * @return bool
      */
-    private static function _validateLogsNumber(): bool {
+    private static function _validateLogsNumber() {
 
         $logsCounter = count(static::$logs);
 
