@@ -29,7 +29,7 @@ class Logger {
      *
      * @since 1.0.0
      *
-     * @param string $path
+     * @var string $path
      */
     public static $path;
 
@@ -38,7 +38,7 @@ class Logger {
      *
      * @since 1.0.0
      *
-     * @param string $filepath
+     * @var string $filepath
      */
     public static $filepath;
 
@@ -47,7 +47,7 @@ class Logger {
      *
      * @since 1.0.0
      *
-     * @param string $filename
+     * @var string $filename
      */
     public static $filename;
 
@@ -56,7 +56,7 @@ class Logger {
      *
      * @since 1.0.0
      *
-     * @param array $log
+     * @var array $log
      */
     public static $log;
 
@@ -65,7 +65,7 @@ class Logger {
      *
      * @since 1.0.0
      *
-     * @param array $logs
+     * @var array $logs
      */
     public static $logs = null;
 
@@ -74,7 +74,7 @@ class Logger {
      *
      * @since 1.0.0
      *
-     * @param int $logNumber
+     * @var int $logNumber
      */
     public static $logNumber;
 
@@ -83,7 +83,7 @@ class Logger {
      *
      * @since 1.0.0
      *
-     * @param int $counterLogs
+     * @var int $counterLogs
      */
     public static $counterLogs = 0;
 
@@ -92,7 +92,7 @@ class Logger {
      *
      * @since 1.0.0
      *
-     * @param string $states
+     * @var string $states
      */
     public static $states;
                                                                                     
