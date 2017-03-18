@@ -2,15 +2,11 @@
 /**
  * Php library to create logs easily and store them in Json format.
  * 
- * @category   JST
- * @package    Logger
- * @subpackage Logger
- * @author     Josantonius - info@josantonius.com
- * @copyright  Copyright (c) 2017 JST PHP Framework
+ * @author     Josantonius - hello@josantonius.com
+ * @copyright  Copyright (c)
  * @license    https://opensource.org/licenses/MIT - The MIT License (MIT)
- * @version    1.1.0
  * @link       https://github.com/Josantonius/PHP-Logger
- * @since      File available since 1.0.0 - Update: 2017-01-30
+ * @since      1.0.0
  */
 
 namespace Josantonius\Logger;
