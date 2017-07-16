@@ -97,11 +97,11 @@ class Logger {
      *
      * @since 1.0.0
      *
-     * @param  string $path         → path name to save file with logs
-     * @param  string $filename     → json file name that will save the logs
-     * @param  int    $logNumber    → maximum number of logs to save to file
-     * @param  string $ip           → user ip. If you want to get to another library
-     * @param  array  $states       → different states for logs
+     * @param  string $path      → path name to save file with logs
+     * @param  string $filename  → json file name that will save the logs
+     * @param  int    $logNumber → maximum number of logs to save to file
+     * @param  string $ip        → user ip. If you want to get to another library
+     * @param  array  $states    → different states for logs
      *
      * @return bool
      */
@@ -110,18 +110,18 @@ class Logger {
 
         $defaultPath = $_SERVER['DOCUMENT_ROOT'] . '/log/';
 
-        static::$path      = (!is_null($path))     ? $path     : $defaultPath;
-        static::$filename  = (!is_null($filename)) ? $filename : 'logs';
-        static::$filename .= '.jsond';
-        static::$filepath  = static::$path . static::$filename;
-        static::$logNumber = $logNumber;
+        self::$path      = (!is_null($path))     ? $path     : $defaultPath;
+        self::$filename  = (!is_null($filename)) ? $filename : 'logs';
+        self::$filename .= '.jsond';
+        self::$filepath  = self::$path . self::$filename;
+        self::$logNumber = $logNumber;
 
-        static::$log['ip']          = (isset($ip)) ? $ip : $_SERVER['REMOTE_ADDR'];
-        static::$log['uri']         = $_SERVER['REQUEST_URI'];
-        static::$log['referer']     = $_SERVER['HTTP_REFERER'];
-        static::$log['remote-port'] = $_SERVER['REMOTE_PORT'];
-        static::$log['ip-server']   = $_SERVER['SERVER_ADDR'];
-        static::$log['user-agent']  = $_SERVER['HTTP_USER_AGENT'];
+        self::$log['ip']          = (isset($ip)) ? $ip : $_SERVER['REMOTE_ADDR'];
+        self::$log['uri']         = $_SERVER['REQUEST_URI'];
+        self::$log['referer']     = $_SERVER['HTTP_REFERER'];
+        self::$log['remote-port'] = $_SERVER['REMOTE_PORT'];
+        self::$log['ip-server']   = $_SERVER['SERVER_ADDR'];
+        self::$log['user-agent']  = $_SERVER['HTTP_USER_AGENT'];
 
         $defaultStates  = [ 
             'is_active' => 1,
@@ -132,11 +132,11 @@ class Logger {
             'fatal'     => 1,
         ];  
 
-        static::$states = (isset($states)) ? $states : $defaultStates;
+        self::$states = (isset($states)) ? $states : $defaultStates;
 
         register_shutdown_function(array($this, 'shutdown'));
 
-        return (static::$states['is_active']) ? $this->_getLogs() : false;
+        return (self::$states['is_active']) ? $this->_getLogs() : false;
     }
                                                                                      
     /**
@@ -149,25 +149,25 @@ class Logger {
      */
     private function _getLogs() {
 
-        if (!is_dir(static::$path)) {
+        if (!is_dir(self::$path)) {
 
-            if (!mkdir(static::$path, 0755, true)) { 
+            if (!mkdir(self::$path, 0755, true)) { 
 
-                $message = 'Could not create directory in: ' . static::$path;
+                $message = 'Could not create directory in: ' . self::$path;
 
                 throw new LoggerException($message, 706);
             }
         }
 
-        if (is_file(static::$filepath)) {
+        if (is_file(self::$filepath)) {
 
-            $logs = file_get_contents(static::$filepath);
+            $logs = file_get_contents(self::$filepath);
             
-            static::$logs = json_decode($logs, true);
+            self::$logs = json_decode($logs, true);
 
-            if (!count(static::$logs)) {
+            if (!count(self::$logs)) {
 
-                static::save('INFO', 1, 200, 'DEBUG [ON]', __LINE__, __FILE__);
+                self::save('INFO', 1, 200, 'DEBUG [ON]', __LINE__, __FILE__);
             }
         } 
 
@@ -194,37 +194,37 @@ class Logger {
 
         $type = strtolower($type); 
 
-        $status = (isset(static::$states[$type])) ? static::$states[$type] : false;
+        $status = (isset(self::$states[$type])) ? self::$states[$type] : false;
 
-        if (!isset($status) || !$status || !static::$states['is_active']) {
+        if (!isset($status) || !$status || !self::$states['is_active']) {
 
             return false;
         } 
 
-        static::$log['type']    = $type ; 
-        static::$log['state']   = $state; 
-        static::$log['code']    = $code; 
-        static::$log['message'] = $message; 
-        static::$log['line']    = $line;
-        static::$log['file']    = $file;
-        static::$log['hour']    = date('H:i:s'); 
-        static::$log['date']    = date('Y-m-d');
+        self::$log['type']    = $type ; 
+        self::$log['state']   = $state; 
+        self::$log['code']    = $code; 
+        self::$log['message'] = $message; 
+        self::$log['line']    = $line;
+        self::$log['file']    = $file;
+        self::$log['hour']    = date('H:i:s'); 
+        self::$log['date']    = date('Y-m-d');
 
         if (is_array($data)) {
 
             foreach ($data as $key => $value) {
 
-                static::$log[$key] = $value;
+                self::$log[$key] = $value;
             }
         }
 
         $numLogs = 1;
 
-        $count = count(static::$logs);
+        $count = count(self::$logs);
 
-        static::$logs[$count++] = static::$log;
+        self::$logs[$count++] = self::$log;
 
-        static::$counterLogs++;
+        self::$counterLogs++;
 
         return true;
     }
@@ -240,32 +240,32 @@ class Logger {
      */
     public static function storeLogs() {
 
-        if (static::$counterLogs === 0) {
+        if (self::$counterLogs === 0) {
 
             return true;
         }
 
-        static::_validateLogsNumber();
+        self::_validateLogsNumber();
 
-        $json = json_encode(static::$logs);
+        $json = json_encode(self::$logs);
 
-        $file = fopen(static::$filepath, 'w+'); 
+        $file = fopen(self::$filepath, 'w+'); 
 
         if (!$file) {
 
-            $message = 'Could not create or open file in: ' . static::$filepath;
+            $message = 'Could not create or open file in: ' . self::$filepath;
 
             throw new LoggerException($message, 707);
         } 
 
         if (!fwrite($file, $json)) {
 
-            $message = 'Could not write to file: ' . static::$filepath;
+            $message = 'Could not write to file: ' . self::$filepath;
 
             throw new LoggerException($message, 708);
         }
 
-        static::$counterLogs = 0;
+        self::$counterLogs = 0;
 
         return true;
     }
@@ -279,20 +279,20 @@ class Logger {
      */
     private static function _validateLogsNumber() {
 
-        $logsCounter = count(static::$logs);
+        $logsCounter = count(self::$logs);
 
-        if (static::$logNumber < $logsCounter) {
+        if (self::$logNumber < $logsCounter) {
 
-            $logs = array_reverse(static::$logs);
+            $logs = array_reverse(self::$logs);
 
-            $conserve = static::$logNumber / 2;
+            $conserve = self::$logNumber / 2;
 
             for ($i=0; $i < $conserve; $i++) {
 
                 $conserveLogs[$i] = $logs[$i];
             }
 
-            static::$logs = array_reverse($conserveLogs);
+            self::$logs = array_reverse($conserveLogs);
         }
 
         return true;
@@ -307,11 +307,11 @@ class Logger {
      */
     public function shutdown() {
 
-        if (count(static::$counterLogs) > 0) {
+        if (count(self::$counterLogs) > 0) {
 
-            if (isset(static::$states['is_active']) && static::$states['is_active']) {
+            if (isset(self::$states['is_active']) && self::$states['is_active']) {
 
-                static::storeLogs();
+                self::storeLogs();
             }
         }
     }
