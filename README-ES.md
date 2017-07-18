@@ -4,7 +4,7 @@
 
 [Spanish version](README-ES.md)
 
-Librería php para crear logs fácilmente y almacenarlos en formato Json.
+Biblioteca php para crear logs fácilmente y almacenarlos en formato Json.
 
 ---
 
@@ -24,7 +24,7 @@ Librería php para crear logs fácilmente y almacenarlos en formato Json.
 <p align="center"><strong>Echa un vistazo al código</strong></p>
 
 <p align="center">
-  <a href="" title="Echa un vistazo al código">
+  <a href="https://youtu.be/RAqKOLxuWB4" title="Echa un vistazo al código">
     <img src="https://raw.githubusercontent.com/Josantonius/PHP-Algorithm/master/resources/youtube-thumbnail.jpg">
   </a>
 </p>
@@ -53,7 +53,7 @@ Esta biblioteca es soportada por versiones de PHP 5.6 o superiores y es compatib
 
 ### Cómo empezar y ejemplos
 
-Para utilizar esta librería, simplemente:
+Para utilizar esta biblioteca, simplemente:
 
 ```php
 require __DIR__ . '/vendor/autoload.php';
@@ -62,7 +62,7 @@ use Josantonius\Logger\Logger;
 ```
 ### Métodos disponibles
 
-Métodos disponibles en esta librería:
+Métodos disponibles en esta biblioteca:
 
 ```php
 Logger::save();
@@ -71,7 +71,7 @@ Logger->shutdown();
 ```
 ### Uso
 
-Ejemplo de uso para esta librería:
+Ejemplo de uso para esta biblioteca:
 
 ```php
 <?php
@@ -140,7 +140,7 @@ $loader->addPsr4('Josantonius\\Logger\\Tests\\', __DIR__ . '/vendor/josantonius/
 
 use Josantonius\Logger\Tests\LoggerTest;
 ```
-Métodos de prueba disponibles en esta librería:
+Métodos de prueba disponibles en esta biblioteca:
 
 ```php
 LoggerTest->testSaveLog();
