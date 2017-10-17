@@ -1,6 +1,6 @@
 # PHP Logger library
 
-[![Latest Stable Version](https://poser.pugx.org/josantonius/logger/v/stable)](https://packagist.org/packages/josantonius/logger) [![Total Downloads](https://poser.pugx.org/josantonius/logger/downloads)](https://packagist.org/packages/josantonius/logger) [![Latest Unstable Version](https://poser.pugx.org/josantonius/logger/v/unstable)](https://packagist.org/packages/josantonius/logger) [![License](https://poser.pugx.org/josantonius/logger/license)](https://packagist.org/packages/josantonius/logger)
+[![Latest Stable Version](https://poser.pugx.org/josantonius/logger/v/stable)](https://packagist.org/packages/josantonius/logger) [![Total Downloads](https://poser.pugx.org/josantonius/logger/downloads)](https://packagist.org/packages/josantonius/logger) [![Latest Unstable Version](https://poser.pugx.org/josantonius/logger/v/unstable)](https://packagist.org/packages/josantonius/logger) [![License](https://poser.pugx.org/josantonius/logger/license)](https://packagist.org/packages/josantonius/logger) [![Travis](https://travis-ci.org/Josantonius/PHP-Logger.svg)](https://travis-ci.org/Josantonius/PHP-Logger)
 
 [Spanish version](README-ES.md)
 
@@ -10,24 +10,16 @@ Biblioteca php para crear logs fácilmente y almacenarlos en formato Json.
 
 - [Instalación](#instalación)
 - [Requisitos](#requisitos)
+- [Imágenes](#imágenes)
 - [Cómo empezar y ejemplos](#cómo-empezar-y-ejemplos)
 - [Métodos disponibles](#métodos-disponibles)
 - [Uso](#uso)
 - [Tests](#tests)
+- [Tareas pendientes](#-tareas-pendientes)
 - [Contribuir](#contribuir)
 - [Repositorio](#repositorio)
 - [Licencia](#licencia)
 - [Copyright](#copyright)
-
----
-
-<p align="center"><strong>Echa un vistazo al código</strong></p>
-
-<p align="center">
-  <a href="https://youtu.be/RAqKOLxuWB4" title="Echa un vistazo al código">
-    <img src="https://raw.githubusercontent.com/Josantonius/PHP-Algorithm/master/resources/youtube-thumbnail.jpg">
-  </a>
-</p>
 
 ---
 
@@ -51,6 +43,14 @@ También puedes clonar el repositorio completo con Git:
 
 Esta biblioteca es soportada por versiones de PHP 5.6 o superiores y es compatible con versiones de HHVM 3.0 o superiores.
 
+### Imágenes
+
+![image](resources/logger-1.png)
+![image](resources/logger-2.png)
+![image](resources/logger-3.png)
+![image](resources/logger-4.png)
+![image](resources/logger-5.png)
+
 ### Cómo empezar y ejemplos
 
 Para utilizar esta biblioteca, simplemente:
@@ -60,18 +60,131 @@ require __DIR__ . '/vendor/autoload.php';
 
 use Josantonius\Logger\Logger;
 ```
+
 ### Métodos disponibles
 
 Métodos disponibles en esta biblioteca:
 
+**Iniciador para la gestión de logs del sitio.**
+
 ```php
-Logger::save();
-Logger::storeLogs();
-Logger->shutdown();
+Logger($path, $filename, $logNumber, $ip, $states);
 ```
+
+Atributo | Descripción | Tipo | Requerido | Predeterminado
+| --- | --- | --- | --- | --- |
+| $path | Ruta donde guardar los logs | string | No | null |
+| $filename | Nombre de archivo JSON que guardará los registros | string | No | null |
+| $logNumber | Número máximo de logs guardar en el archivo | int | No | 200 |
+| $ip | IP del usuario | string | No | null |
+| $states | Diferentes estados para los logs | array | No | null |
+
+- **@return** → void
+
+---
+
+**Guardar log.**
+
+```php
+Logger::save($type, $code, $msg, $line, $file, $data);
+```
+
+Atributo | Descripción | Tipo | Requerido | Predeterminado
+| --- | --- | --- | --- | --- |
+| $type | Tipo de error o aviso | string | Yes | |
+| $code | Código de estado de respuesta HTTP | int | Yes | |
+| $message | Mensaje | string | Yes | |
+| $line | Línea desde la que se guarda el log | int | Yes | |
+| $file | Ruta del archivo desde el que se llama el método | string | Yes | |
+| $data | Parámetros extra personalizados | array | No | 0 |
+
+- **@return** → boolean
+
+---
+
+**Guarda los registros en archivo JSON.**
+
+```php
+Logger::store();
+```
+
+- **@return** → boolean
+
+---
+
+**Obtener logs guardados.**
+
+```php
+Logger::get();
+```
+
+- **@return** → array → logs guardados
+
+---
+
+**Definir directorio para scripts y obtener url del archivo.**
+
+```php
+Logger::script($url);
+```
+
+Atributo | Descripción | Tipo | Requerido | Predeterminado
+| --- | --- | --- | --- | --- |
+| $url | File url | string | Yes | |
+
+- **@return** → string → url del archivo
+
+---
+
+**Definir directorio para estilos y obtener url del archivo.**
+
+```php
+Logger::style($url);
+```
+
+Atributo | Descripción | Tipo | Requerido | Predeterminado
+| --- | --- | --- | --- | --- |
+| $url | File url | string | Yes | |
+
+- **@return** → string → url del archivo
+
+---
+
+**Obtener el número de logs guardados en la sección actual.**
+
+```php
+Logger:added();
+```
+
+- **@return** → int → logs añadidos en la sección actual
+
+---
+
+**Mostrar sección de registros**
+
+```php
+Logger:render();
+```
+
+- **@return** → boolean true
+
+---
+
+**Restablecer parámetros.**
+
+```php
+Logger:reset();
+```
+
+- **@return** → boolean true
+
+---
+
 ### Uso
 
 Ejemplo de uso para esta biblioteca:
+
+#### Ejemplo básico
 
 ```php
 <?php
@@ -81,80 +194,77 @@ use Josantonius\Logger\Logger;
 
 new Logger();
 
-Logger::save('JOIN',    800, 100, 'Your message here', __LINE__, __FILE__);
-Logger::save('INFO',    801, 200, 'Your message here', __LINE__, __FILE__);
-Logger::save('WARNING', 802, 300, 'Your message here', __LINE__, __FILE__);
-Logger::save('ERROR',   803, 400, 'Your message here', __LINE__, __FILE__);
-Logger::save('FATAL',   804, 500, 'Your message here', __LINE__, __FILE__);
+Logger::save('SUCCESS',  100, 'msg', __LINE__, __FILE__);
+Logger::save('JOIN',     200, 'msg', __LINE__, __FILE__);
+Logger::save('INFO',     300, 'msg', __LINE__, __FILE__);
+Logger::save('WARNING',  400, 'msg', __LINE__, __FILE__);
+Logger::save('ERROR',    500, 'msg', __LINE__, __FILE__);
+Logger::save('FATAL',    600, 'msg', __LINE__, __FILE__);
+Logger::save('REQUEST',  700, 'msg', __LINE__, __FILE__);
+Logger::save('RESPONSE', 800, 'msg', __LINE__, __FILE__);
+
+Logger::storeLogs();
+```
+
+#### Ejemplo avanzado
+
+```php
+<?php
+require __DIR__ . '/vendor/autoload.php';
+
+use Josantonius\Logger\Logger;
+
+$states  = [
+
+  'global'    => true,
+  'exception' => true,
+  'error'     => false,
+  'notice'    => false,
+  'fatal'     => true,
+];
+
+new Logger('/logger/', 'logs', 600, '58.80.84.44', $states);
+
+Logger::save('EXCEPTION', 400, 'msg', __LINE__, __FILE__);
+Logger::save('ERROR' ,    402, 'msg', __LINE__, __FILE__);
+Logger::save('NOTICE',    100, 'msg', __LINE__, __FILE__);
+
+$params = [
+
+  'id-user'   => 68,
+  'name-user' => 'Joe'
+]; 
+        
+Logger::save('FATAL, 500, 'msg', __LINE__, __FILE__, $params);
 
 Logger::storeLogs();
 
-echo '<pre>'; var_dump(Logger::$logs); echo '</pre>';
+echo 'Logs added: ' . Logger::added();
 
-/*
-array(1) {
-  [0]=>
-  array(14) {
-    ["ip"]=>
-    string(3) "158.54.12.100"
-    ["uri"]=>
-    string(5) "/folder/"
-    ["referer"]=>
-    string(7) "http://www.referer.es/"
-    ["remote-port"]=>
-    int(47290)
-    ["ip-server"]=>
-    string(3) "188.254.112.200"
-    ["user-agent"]=>
-    string(133) "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/5.36 (KHTML, like Gecko) Ubuntu Chromium/55.0.23.87 Chrome/55.0.23.87 Safari/5.36"
-    ["type"]=>
-    string(4) "join"
-    ["state"]=>
-    int(800)
-    ["code"]=>
-    string(3) "100"
-    ["message"]=>
-    string(17) "Visit the page"
-    ["line"]=>
-    int(572)
-    ["file"]=>
-    string(44) "/var/www/localhost/public_html/folder/index.php"
-    ["hour"]=>
-    string(8) "20:58:18"
-    ["date"]=>
-    string(10) "2017-01-21"
-  }
-}
-*/
+echo 'Logs added: ' . count(Logger::get);
+
+printf('<link href="%s">', Logger::style('http://site.com/public/css/'));
+
+printf('<script src="%s">', Logger::script('http://site.com/public/js/'));
+
+Logger::render();
 ```
 
 ### Tests 
 
-Para utilizar la clase de [pruebas](tests), simplemente:
+Para ejecutar las [pruebas](tests/Logger/Test) simplemente:
 
-```php
-<?php
-$loader = require __DIR__ . '/vendor/autoload.php';
+    $ git clone https://github.com/Josantonius/PHP-Logger.git
+    
+    $ cd PHP-Logger
 
-$loader->addPsr4('Josantonius\\Logger\\Tests\\', __DIR__ . '/vendor/josantonius/logger/tests');
+    $ phpunit
 
-use Josantonius\Logger\Tests\LoggerTest;
-```
-Métodos de prueba disponibles en esta biblioteca:
+### ☑ Tareas pendientes
 
-```php
-LoggerTest->testSaveLog();
-LoggerTest->testSaveLogWithFilepath();
-LoggerTest->testSaveLogWithLimitLogsNumber();
-LoggerTest->testSaveLogWithUserIP();
-LoggerTest->testSaveLogWithUserCustomStates();
-LoggerTest->testSaveLogWithUserCustomParams();
-LoggerTest->testDisableLogs();
-LoggerTest->testDisableLogsByState();
-LoggerTest->testGetLogs();
-LoggerTest->testGetLogsFromCustomPath();
-LoggerTest->testExceptionCouldCreatePath();
-```
+- [x] Completar tests
+- [ ] Mejorar la documentación
+
 
 ### Contribuir
 1. Comprobar si hay incidencias abiertas o abrir una nueva para iniciar una discusión en torno a un fallo o función.

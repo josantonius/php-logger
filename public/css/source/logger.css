@@ -1,0 +1,125 @@
+/**
+ * Php library to create logs easily and store them in JSON format.
+ *
+ * @author     Josantonius - hello@josantonius.com
+ * @copyright  Copyright (c)
+ * @license    https://opensource.org/licenses/MIT - The MIT License (MIT)
+ * @link       https://github.com/Josantonius/PHP-Logger
+ * @since      1.1.2
+ */
+.jst-card-log {
+  background: #262621 !important;
+  max-height: 500px;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.log-line {
+  width: 88%;
+  padding: 0px 20px;
+}
+
+.jst-logs {
+  margin-top: 25px;
+  margin-left: 25px;
+  font-family: monospace;
+  white-space: nowrap;
+}
+
+.jst-overflow {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.jst-logger {
+  color: white;
+}
+
+.jst-clear {
+  margin-top: 17px;
+}
+
+.jst-uppercase {
+  text-transform: uppercase;
+}
+
+.jst-no-display {
+  opacity: 0.0984771;
+  display: none;
+}
+
+.jst-log-line {
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.jst-log-line:hover {
+  background: rgba(255, 255, 255, 0.16);
+  padding: 2.5px 2.5px 2.5px 0px;
+}
+
+.jst-message {
+  margin-right: 25px;
+}
+
+/**
+ * Colors
+ */
+.jst-c-purple,
+.jst-c-error {
+  color: #af95e6;
+}
+
+.jst-c-blue,
+.jst-c-info {
+  color: #6be5f2;
+}
+
+.jst-c-green,
+.jst-c-success {
+  color: #a2d92b;
+}
+
+.jst-c-red,
+.jst-c-fatal {
+  color: #ef5555;
+}
+
+.jst-c-esmerald,
+.jst-c-join {
+  color: #2ecc71;
+}
+
+.jst-c-blue,
+.jst-c-request {
+  color: #4bb7ff;
+}
+
+.jst-c-orange {
+  color: #fd971f;
+}
+
+.jst-c-yellow,
+.jst-c-warning {
+  color: rgba(255, 235, 59, 0.91);
+}
+
+.jst-c-gray {
+  color: #ababab;
+}
+
+.jst-c-tuequoise,
+.jst-c-response {
+  color: #1abc9c;
+}
+
+.jst-c-black {
+  color: #262621;
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibG9nZ2VyLmNzcyIsInNvdXJjZXMiOlsibG9nZ2VyLnNhc3MiLCJwYXJ0aWFscy9fZ2xvYmFsLnNhc3MiLCJwYXJ0aWFscy9fY29sb3JzLnNhc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7Ozs7O0dBUUc7QUNSSCxBQUFBLGFBQWEsQ0FBQztFQUNaLFVBQVUsRUFBRSxPQUFPLENBQUEsVUFBVTtFQUM3QixVQUFVLEVBQUUsS0FBSztFQUNqQixXQUFXLEVBQUUsTUFBTTtFQUNuQixVQUFVLEVBQUUsSUFBSTtFQUNoQixVQUFVLEVBQUUsSUFBSTtDQUFJOztBQUV0QixBQUFBLFNBQVMsQ0FBQztFQUNSLEtBQUssRUFBRSxHQUFHO0VBQ1YsT0FBTyxFQUFFLFFBQVE7Q0FBSTs7QUFFdkIsQUFBQSxTQUFTLENBQUM7RUFDUixVQUFVLEVBQUUsSUFBSTtFQUNoQixXQUFXLEVBQUUsSUFBSTtFQUNqQixXQUFXLEVBQUUsU0FBUztFQUN0QixXQUFXLEVBQUUsTUFBTTtDQUFJOztBQUV6QixBQUFBLGFBQWEsQ0FBQztFQUNaLGFBQWEsRUFBRSxRQUFRO0VBQ3ZCLFdBQVcsRUFBRSxNQUFNO0VBQ25CLFFBQVEsRUFBRSxNQUFNO0NBQUk7O0FBRXRCLEFBQUEsV0FBVyxDQUFDO0VBQ1YsS0FBSyxFQUFFLEtBQUs7Q0FBSTs7QUFFbEIsQUFBQSxVQUFVLENBQUM7RUFDVCxVQUFVLEVBQUUsSUFBSTtDQUFJOztBQUV0QixBQUFBLGNBQWMsQ0FBQztFQUNiLGNBQWMsRUFBRSxTQUFTO0NBQUk7O0FBRS9CLEFBQUEsZUFBZSxDQUFDO0VBQ2QsT0FBTyxFQUFFLFNBQVM7RUFDbEIsT0FBTyxFQUFFLElBQUk7Q0FBSTs7QUFFbkIsQUFBQSxhQUFhLENBQUM7RUFDWixNQUFNLEVBQUUsT0FBTztFQUNmLFNBQVMsRUFBRSxJQUFJO0VBQ2YsV0FBVyxFQUFFLEdBQUc7Q0FBSTs7QUFFdEIsQUFBQSxhQUFhLEFBQUEsTUFBTSxDQUFDO0VBQ2xCLFVBQVUsRUFBRSx5QkFBeUI7RUFDckMsT0FBTyxFQUFFLHFCQUFxQjtDQUFJOztBQUNwQyxBQUFBLFlBQVksQ0FBQztFQUNYLFlBQVksRUFBRSxJQUFJO0NBQUk7O0FDNUN4Qjs7R0FFRztBQUNILEFBQUEsYUFBYTtBQUNiLEFBQUEsWUFBWSxDQUFDO0VBQ1gsS0FBSyxFQUFFLE9BQU87Q0FBSTs7QUFFcEIsQUFBQSxXQUFXO0FBQ1gsQUFBQSxXQUFXLENBQUM7RUFDVixLQUFLLEVBQUUsT0FBTztDQUFJOztBQUVwQixBQUFBLFlBQVk7QUFDWixBQUFBLGNBQWMsQ0FBQztFQUNiLEtBQUssRUFBRSxPQUFPO0NBQUk7O0FBRXBCLEFBQUEsVUFBVTtBQUNWLEFBQUEsWUFBWSxDQUFDO0VBQ1gsS0FBSyxFQUFFLE9BQU87Q0FBSTs7QUFFcEIsQUFBQSxlQUFlO0FBQ2YsQUFBQSxXQUFXLENBQUM7RUFDVixLQUFLLEVBQUUsT0FBTztDQUFJOztBQUVwQixBQUFBLFdBQVc7QUFDWCxBQUFBLGNBQWMsQ0FBQztFQUNiLEtBQUssRUFBRSxPQUFPO0NBQUk7O0FBRXBCLEFBQUEsYUFBYSxDQUFDO0VBQ1osS0FBSyxFQUFFLE9BQU87Q0FBSTs7QUFFcEIsQUFBQSxhQUFhO0FBQ2IsQUFBQSxjQUFjLENBQUM7RUFDYixLQUFLLEVBQUUsd0JBQXdCO0NBQUc7O0FBRXBDLEFBQUEsV0FBVyxDQUFDO0VBQ1YsS0FBSyxFQUFFLE9BQU87Q0FBSTs7QUFFcEIsQUFBQSxnQkFBZ0I7QUFDaEIsQUFBQSxlQUFlLENBQUM7RUFDZCxLQUFLLEVBQUUsT0FBTztDQUFJOztBQUVwQixBQUFBLFlBQVksQ0FBQztFQUNYLEtBQUssRUFBRSxPQUFPO0NBQUkifQ== */
+
+/*# sourceMappingURL=logger.css.map */

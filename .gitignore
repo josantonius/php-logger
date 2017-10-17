@@ -1,10 +1,11 @@
 phpunit.xml
 composer.phar
 composer.lock
+package-lock.json
 composer-test.lock
-vendor/
 build/artifacts/
 artifacts/
+node_modules/
 docs/_build
 docs/*.pyc
 .git*/
