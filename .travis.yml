@@ -12,6 +12,7 @@ cache:
   - $HOME/.composer/cache
   
 php:
+  - hhvm
   - 5.6
   - 7.0
   - 7.1
@@ -19,16 +20,13 @@ php:
 
 matrix:
   fast_finish: true
-  include:
-    - php: hhvm
-      env: HHVM=1
   allow_failures:
     - php: nightly
 
 before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   - |
-    if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." && -v "$HHVM" ]]; then
+    if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." ]]; then
       composer global require "phpunit/phpunit=5.7.*"
     else
       composer global require "phpunit/phpunit=4.8.*"
