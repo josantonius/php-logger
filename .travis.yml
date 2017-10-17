@@ -28,7 +28,7 @@ matrix:
 before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   - |
-    if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." && -z "$HHVM" ]]; then
+    if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." && -v "$HHVM" ]]; then
       composer global require "phpunit/phpunit=5.7.*"
     else
       composer global require "phpunit/phpunit=4.8.*"
