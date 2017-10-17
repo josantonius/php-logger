@@ -6,10 +6,6 @@ dist: trusty
 
 git:
   depth: 5
-    
-cache:
-  - composer
-  - $HOME/.composer/cache
   
 php:
   - hhvm
@@ -24,13 +20,6 @@ matrix:
     - php: nightly
 
 before_script:
-  - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - |
-    if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." ]]; then
-      composer global require "phpunit/phpunit=5.7.*"
-    else
-      composer global require "phpunit/phpunit=4.8.*"
-    fi
   - composer self-update
   - composer install
 
