@@ -1,6 +1,5 @@
 /tests export-ignore
 /resources export-ignore
-/src/bootstrap.php export-ignore
 /vendor export-ignore
 /node_modules export-ignore
 .gitattributes export-ignore
@@ -17,3 +16,4 @@ README.md export-ignore
 README-ES.md export-ignore
 .editorconfig export-ignore
 composer.lock export-ignore
+phpcs.ruleset.xml export-ignore

@@ -8,10 +8,10 @@ Biblioteca php para crear logs fácilmente y almacenarlos en formato Json.
 
 ---
 
-- [Instalación](#instalación)
 - [Requisitos](#requisitos)
-- [Imágenes](#imágenes)
-- [Cómo empezar y ejemplos](#cómo-empezar-y-ejemplos)
+- [Instalación](#instalación)
+- [Métodos disponibles](#métodos-disponibles)
+- [Cómo empezar](#cómo-empezar)
 - [Métodos disponibles](#métodos-disponibles)
 - [Uso](#uso)
 - [Tests](#tests)
@@ -23,27 +23,37 @@ Biblioteca php para crear logs fácilmente y almacenarlos en formato Json.
 
 ---
 
-### Instalación 
+## Requisitos
 
-La mejor forma de instalar esta extensión es a través de [composer](http://getcomposer.org/download/).
+Esta clase es soportada por versiones de **PHP 5.6** o superiores y es compatible con versiones de **HHVM 3.0** o superiores.
 
-Para instalar PHP Logger library, simplemente escribe:
+## Instalación 
+
+La mejor forma de instalar esta extensión es a través de [Composer](http://getcomposer.org/download/).
+
+Para instalar **PHP Logger library**, simplemente escribe:
 
     $ composer require Josantonius/Logger
 
-El comando anterior sólo instalará los archivos necesarios, si prefieres descargar todo el código fuente (incluyendo tests, directorio vendor, excepciones no utilizadas, documentos...) puedes utilizar:
+El comando anterior sólo instalará los archivos necesarios, si prefieres **descargar todo el código fuente** puedes utilizar:
 
     $ composer require Josantonius/Logger --prefer-source
 
-También puedes clonar el repositorio completo con Git:
+También puedes **clonar el repositorio** completo con Git:
 
-    $ git clone https://github.com/Josantonius/PHP-Logger.git
+  $ git clone https://github.com/Josantonius/PHP-Logger.git
 
-### Requisitos
+O **instalarlo manualmente**:
 
-Esta biblioteca es soportada por versiones de PHP 5.6 o superiores y es compatible con versiones de HHVM 3.0 o superiores.
+[Descargar Logger.php](https://raw.githubusercontent.com/Josantonius/PHP-Logger/master/src/Logger.php):
 
-### Imágenes
+    $ wget https://raw.githubusercontent.com/Josantonius/PHP-Logger/master/src/Logger.php
+
+[Descargar Json.php](https://raw.githubusercontent.com/Josantonius/PHP-Json/master/src/Json.php):
+
+    $ wget https://raw.githubusercontent.com/Josantonius/PHP-Json/master/src/Json.php
+
+## Imágenes
 
 ![image](resources/logger-1.png)
 ![image](resources/logger-2.png)
@@ -51,39 +61,27 @@ Esta biblioteca es soportada por versiones de PHP 5.6 o superiores y es compatib
 ![image](resources/logger-4.png)
 ![image](resources/logger-5.png)
 
-### Cómo empezar y ejemplos
-
-Para utilizar esta biblioteca, simplemente:
-
-```php
-require __DIR__ . '/vendor/autoload.php';
-
-use Josantonius\Logger\Logger;
-```
-
-### Métodos disponibles
+## Métodos disponibles
 
 Métodos disponibles en esta biblioteca:
 
-**Iniciador para la gestión de logs del sitio.**
+### - Iniciar manejo de logs en el  sitio:
 
 ```php
-Logger($path, $filename, $logNumber, $ip, $states);
+new Logger($path, $filename, $logNumber, $ip, $states);
 ```
 
 Atributo | Descripción | Tipo | Requerido | Predeterminado
 | --- | --- | --- | --- | --- |
-| $path | Ruta donde guardar los logs | string | No | null |
-| $filename | Nombre de archivo JSON que guardará los registros | string | No | null |
-| $logNumber | Número máximo de logs guardar en el archivo | int | No | 200 |
-| $ip | IP del usuario | string | No | null |
-| $states | Diferentes estados para los logs | array | No | null |
+| $path | Ruta donde guardar los logs. | string | No | null |
+| $filename | Nombre de archivo JSON que guardará los registros. | string | No | null |
+| $logNumber | Número máximo de logs guardar en el archivo. | int | No | 200 |
+| $ip | IP del usuario. | string | No | null |
+| $states | Diferentes estados para los logs. | array | No | null |
 
-- **@return** → void
+**# Return** (void)
 
----
-
-**Guardar log.**
+### - Guardar log:
 
 ```php
 Logger::save($type, $code, $msg, $line, $file, $data);
@@ -91,38 +89,32 @@ Logger::save($type, $code, $msg, $line, $file, $data);
 
 Atributo | Descripción | Tipo | Requerido | Predeterminado
 | --- | --- | --- | --- | --- |
-| $type | Tipo de error o aviso | string | Yes | |
-| $code | Código de estado de respuesta HTTP | int | Yes | |
-| $message | Mensaje | string | Yes | |
-| $line | Línea desde la que se guarda el log | int | Yes | |
-| $file | Ruta del archivo desde el que se llama el método | string | Yes | |
-| $data | Parámetros extra personalizados | array | No | 0 |
+| $type | Tipo de error o aviso. | string | Yes | |
+| $code | Código de estado de respuesta HTTP. | int | Yes | |
+| $message | Mensaje. | string | Yes | |
+| $line | Línea desde la que se guarda el log. | int | Yes | |
+| $file | Ruta del archivo desde el que se llama el método. | string | Yes | |
+| $data | Parámetros extra personalizados. | array | No | 0 |
 
-- **@return** → boolean
+**# Return** (boolean)
 
----
-
-**Guarda los registros en archivo JSON.**
+### - Guarda los registros en archivo JSON:
 
 ```php
 Logger::store();
 ```
 
-- **@return** → boolean
+**# Return** (boolean)
 
----
-
-**Obtener logs guardados.**
+### - Obtener logs guardados:
 
 ```php
 Logger::get();
 ```
 
-- **@return** → array → logs guardados
+**# Return** (array) → logs guardados
 
----
-
-**Definir directorio para scripts y obtener url del archivo.**
+### - Definir directorio para scripts y obtener url del archivo:
 
 ```php
 Logger::script($url);
@@ -130,13 +122,11 @@ Logger::script($url);
 
 Atributo | Descripción | Tipo | Requerido | Predeterminado
 | --- | --- | --- | --- | --- |
-| $url | File url | string | Yes | |
+| $url | Url del archivo. | string | Yes | |
 
-- **@return** → string → url del archivo
+**# Return** (string) → url del archivo
 
----
-
-**Definir directorio para estilos y obtener url del archivo.**
+### - Definir directorio para estilos y obtener url del archivo:
 
 ```php
 Logger::style($url);
@@ -144,47 +134,58 @@ Logger::style($url);
 
 Atributo | Descripción | Tipo | Requerido | Predeterminado
 | --- | --- | --- | --- | --- |
-| $url | File url | string | Yes | |
+| $url | Url del archivo. | string | Yes | |
 
-- **@return** → string → url del archivo
+**# Return** (string) → url del archivo
 
----
-
-**Obtener el número de logs guardados en la sección actual.**
+### - Obtener el número de logs guardados en la sección actual:
 
 ```php
-Logger:added();
+::added();
 ```
 
-- **@return** → int → logs añadidos en la sección actual
+**# Return** (int) → logs añadidos en la sección actual
 
----
-
-**Mostrar sección de registros**
+### - Mostrar sección de registros**
 
 ```php
-Logger:render();
+Logger::render();
 ```
 
-- **@return** → boolean true
+**# Return** (boolean true)
 
----
-
-**Restablecer parámetros.**
+### - Restablecer parámetros:
 
 ```php
-Logger:reset();
+Logger::reset();
 ```
 
-- **@return** → boolean true
+**# Return** (boolean true)
 
----
+## Cómo empezar
 
-### Uso
+Para utilizar esta biblioteca con **Composer**:
+
+```php
+require __DIR__ . '/vendor/autoload.php';
+
+use Josantonius\Logger\Logger;
+```
+
+Si la instalaste **manualmente**, utiliza:
+
+```php
+require_once __DIR__ . '/Logger.php';
+require_once __DIR__ . '/Json.php';
+
+use Josantonius\Logger\Logger;
+```
+
+## Uso
 
 Ejemplo de uso para esta biblioteca:
 
-#### Ejemplo básico
+### - Ejemplo básico
 
 ```php
 <?php
@@ -206,7 +207,7 @@ Logger::save('RESPONSE', 800, 'msg', __LINE__, __FILE__);
 Logger::storeLogs();
 ```
 
-#### Ejemplo avanzado
+### - Ejemplo avanzado
 
 ```php
 <?php
@@ -250,23 +251,35 @@ printf('<script src="%s">', Logger::script('http://site.com/public/js/'));
 Logger::render();
 ```
 
-### Tests 
+## Tests 
 
-Para ejecutar las [pruebas](tests/Logger/Test) simplemente:
+Para ejecutar las [pruebas](tests) necesitarás [Composer](http://getcomposer.org/download/) y seguir los siguientes pasos:
 
     $ git clone https://github.com/Josantonius/PHP-Logger.git
     
     $ cd PHP-Logger
 
-    $ phpunit
+    $ composer install
 
-### ☑ Tareas pendientes
+Ejecutar pruebas unitarias con [PHPUnit](https://phpunit.de/):
+
+    $ composer phpunit
+
+Ejecutar pruebas de estándares de código [PSR2](http://www.php-fig.org/psr/psr-2/) con [PHPCS](https://github.com/squizlabs/PHP_CodeSniffer):
+
+    $ composer phpcs
+
+Ejecutar todas las pruebas anteriores:
+
+    $ composer tests
+
+## ☑ Tareas pendientes
 
 - [x] Completar tests
-- [ ] Mejorar la documentación
+- [x] Mejorar la documentación
 
+## Contribuir
 
-### Contribuir
 1. Comprobar si hay incidencias abiertas o abrir una nueva para iniciar una discusión en torno a un fallo o función.
 1. Bifurca la rama del repositorio en GitHub para iniciar la operación de ajuste.
 1. Escribe una o más pruebas para la nueva característica o expón el error.
@@ -275,15 +288,15 @@ Para ejecutar las [pruebas](tests/Logger/Test) simplemente:
 
 Esto está pensado para proyectos grandes y de larga duración.
 
-### Repositorio
+## Repositorio
 
 Los archivos de este repositorio se crearon y subieron automáticamente con [Reposgit Creator](https://github.com/Josantonius/BASH-Reposgit).
 
-### Licencia
+## Licencia
 
 Este proyecto está licenciado bajo **licencia MIT**. Consulta el archivo [LICENSE](LICENSE) para más información.
 
-### Copyright
+## Copyright
 
 2017 Josantonius, [josantonius.com](https://josantonius.com/)
 

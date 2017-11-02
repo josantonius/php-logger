@@ -6,11 +6,11 @@
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
+         strict="true"
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="false"
-         bootstrap="tests/bootstrap.php"
->
+         bootstrap="vendor/autoload.php">
 
     <php>
         <server name='SERVER_PROTOCOL' value='HTTP/1.1' />
@@ -27,14 +27,14 @@
     </php>
 
     <testsuites>
-        <testsuite name="Logger Test Suite">
-            <directory>tests/Logger</directory>
+        <testsuite name="Test Suite">
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory>src/Logger</directory>
+            <directory>src</directory>
         </whitelist>
     </filter>
 </phpunit>

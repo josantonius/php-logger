@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## 1.1.3 - 2017-11-02
+
+* Implemented `PSR-4 autoloader standard` from all library files.
+
+* Implemented `PSR-2 coding standard` from all library PHP files.
+
+* Implemented `PHPCS` to ensure that PHP code complies with `PSR2` code standards.
+
+* Implemented `Codacy` to automates code reviews and monitors code quality over time.
+
+* Implemented `Codecov` to coverage reports.
+
+* Added `Logger/phpcs.ruleset.xml` file.
+
+* Deleted `Logger/src/bootstrap.php` file.
+
+* Deleted `Logger/tests/bootstrap.php` file.
+
+* Deleted `Logger/vendor` folder.
+
+* Changed `Josantonius\Logger\Test\LoggerTest` class to  `Josantonius\Logger\LoggerTest` class.
+
+
 ## 1.1.2 - 2017-10-16
 
 * Unit tests supported by `PHPUnit` were added.

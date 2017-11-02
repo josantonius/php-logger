@@ -1,6 +1,6 @@
 # PHP Logger library
 
-[![Latest Stable Version](https://poser.pugx.org/josantonius/logger/v/stable)](https://packagist.org/packages/josantonius/logger) [![Total Downloads](https://poser.pugx.org/josantonius/logger/downloads)](https://packagist.org/packages/josantonius/logger) [![Latest Unstable Version](https://poser.pugx.org/josantonius/logger/v/unstable)](https://packagist.org/packages/josantonius/logger) [![License](https://poser.pugx.org/josantonius/logger/license)](https://packagist.org/packages/josantonius/logger) [![Travis](https://travis-ci.org/Josantonius/PHP-Logger.svg)](https://travis-ci.org/Josantonius/PHP-Logger)
+[![Latest Stable Version](https://poser.pugx.org/josantonius/Logger/v/stable)](https://packagist.org/packages/josantonius/Logger) [![Latest Unstable Version](https://poser.pugx.org/josantonius/Logger/v/unstable)](https://packagist.org/packages/josantonius/Logger) [![License](https://poser.pugx.org/josantonius/Logger/license)](LICENSE) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a3b8254dfc74493fb162fc322e083f88)](https://www.codacy.com/app/Josantonius/PHP-Logger?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Josantonius/PHP-Logger&amp;utm_campaign=Badge_Grade) [![Total Downloads](https://poser.pugx.org/josantonius/Logger/downloads)](https://packagist.org/packages/josantonius/Logger) [![Travis](https://travis-ci.org/Josantonius/PHP-Logger.svg)](https://travis-ci.org/Josantonius/PHP-Logger) [![PSR2](https://img.shields.io/badge/PSR-2-1abc9c.svg)](http://www.php-fig.org/psr/psr-2/) [![PSR4](https://img.shields.io/badge/PSR-4-9b59b6.svg)](http://www.php-fig.org/psr/psr-4/) [![CodeCov](https://codecov.io/gh/Josantonius/PHP-Logger/branch/master/graph/badge.svg)](https://codecov.io/gh/Josantonius/PHP-Logger)
 
 [Spanish version](README-ES.md)
 
@@ -8,10 +8,10 @@ Php library to create logs easily and store them in Json format.
 
 ---
 
-- [Installation](#installation)
 - [Requirements](#requirements)
-- [Images](#images)
-- [Quick Start and Examples](#quick-start-and-examples)
+- [Installation](#installation)
+- [Available Methods](#available-methods)
+- [Quick Start](#quick-start)
 - [Available Methods](#available-methods)
 - [Usage](#usage)
 - [Tests](#tests)
@@ -23,27 +23,37 @@ Php library to create logs easily and store them in Json format.
 
 ---
 
-### Installation
+## Requirements
 
-The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+This library is supported by **PHP versions 5.6** or higher and is compatible with **HHVM versions 3.0** or higher.
 
-To install PHP Logger library, simply:
+## Installation
+
+The preferred way to install this extension is through [Composer](http://getcomposer.org/download/).
+
+To install **PHP Logger library**, simply:
 
     $ composer require Josantonius/Logger
 
-The previous command will only install the necessary files, if you prefer to download the entire source code (including tests, vendor folder, exceptions not used, docs...) you can use:
+The previous command will only install the necessary files, if you prefer to **download the entire source code** you can use:
 
     $ composer require Josantonius/Logger --prefer-source
 
-Or you can also clone the complete repository with Git:
+You can also **clone the complete repository** with Git:
 
-    $ git clone https://github.com/Josantonius/PHP-Logger.git
+  $ git clone https://github.com/Josantonius/PHP-Logger.git
 
-### Requirements
+Or **install it manually**:
 
-This library is supported by PHP versions 5.6 or higher and is compatible with HHVM versions 3.0 or higher.
+[Download Logger.php](https://raw.githubusercontent.com/Josantonius/PHP-Logger/master/src/Logger.php):
 
-### Images
+    $ wget https://raw.githubusercontent.com/Josantonius/PHP-Logger/master/src/Logger.php
+
+[Download Json.php](https://raw.githubusercontent.com/Josantonius/PHP-Json/master/src/Json.php):
+
+    $ wget https://raw.githubusercontent.com/Josantonius/PHP-Json/master/src/Json.php
+
+## Images
 
 ![image](resources/logger-1.png)
 ![image](resources/logger-2.png)
@@ -51,39 +61,27 @@ This library is supported by PHP versions 5.6 or higher and is compatible with H
 ![image](resources/logger-4.png)
 ![image](resources/logger-5.png)
 
-### Quick Start and Examples
-
-To use this class, simply:
-
-```php
-require __DIR__ . '/vendor/autoload.php';
-
-use Josantonius\Logger\Logger;
-```
-
-### Available Methods
+## Available Methods
 
 Available methods in this library:
 
-**Initiator for site debug management.**
+### - Initiator for site debug management:
 
 ```php
-Logger($path, $filename, $logNumber, $ip, $states);
+new Logger($path, $filename, $logNumber, $ip, $states);
 ```
 
 | Atttribute | Description | Type | Required | Default
 | --- | --- | --- | --- | --- |
-| $path | Path name to save file with logs | string | No | null |
-| $filename | JSON file name that will save the logs | string | No | null |
-| $logNumber | Maximum number of logs to save to file | int | No | 200 |
-| $ip | If you want to get to another library | string | No | null |
-| $states | Different states for logs | array | No | null |
+| $path | Path name to save file with logs. | string | No | null |
+| $filename | JSON file name that will save the logs. | string | No | null |
+| $logNumber | Maximum number of logs to save to file. | int | No | 200 |
+| $ip | If you want to get to another library. | string | No | null |
+| $states | Different states for logs. | array | No | null |
 
-- **@return** → void
+**# Return** (void)
 
----
-
-**Save log line.**
+### - Save log line:
 
 ```php
 Logger::save($type, $code, $msg, $line, $file, $data);
@@ -91,38 +89,32 @@ Logger::save($type, $code, $msg, $line, $file, $data);
 
 | Atttribute | Description | Type | Required | Default
 | --- | --- | --- | --- | --- |
-| $type | Error type or warning | string | Yes | |
-| $code | HTTP response status code | int | Yes | |
-| $message | Message | string | Yes | |
-| $line | Line from which the save is executed | int | Yes | |
-| $file | Filepath from which the method is called | string | Yes | |
-| $data | Extra custom parameters | array | No | 0 |
+| $type | Error type or warning. | string | Yes | |
+| $code | HTTP response status code. | int | Yes | |
+| $message | Message. | string | Yes | |
+| $line | Line from which the save is executed. | int | Yes | |
+| $file | Filepath from which the method is called. | string | Yes | |
+| $data | Extra custom parameters. | array | No | 0 |
 
-- **@return** → boolean
+**# Return** (boolean)
 
----
-
-**Save logs to Json file.**
+### - Save logs to Json file:
 
 ```php
 Logger::store();
 ```
 
-- **@return** → boolean
+**# Return** (boolean)
 
----
-
-**Get saved logs.**
+### - Get saved logs:
 
 ```php
 Logger::get();
 ```
 
-- **@return** → array → logs saved
+**# Return** (array) → logs saved
 
----
-
-**Define directory for scripts and get url from file.**
+### - Define directory for scripts and get url from file:
 
 ```php
 Logger::script($url);
@@ -130,13 +122,11 @@ Logger::script($url);
 
 | Atttribute | Description | Type | Required | Default
 | --- | --- | --- | --- | --- |
-| $url | File url | string | Yes | |
+| $url | File url. | string | Yes | |
 
-- **@return** → string → file url
+**# Return** (string) → file url
 
----
-
-**Define directory for styles and get url from file.**
+### - Define directory for styles and get url from file:
 
 ```php
 Logger::style($url);
@@ -144,47 +134,58 @@ Logger::style($url);
 
 | Atttribute | Description | Type | Required | Default
 | --- | --- | --- | --- | --- |
-| $url | File url | string | Yes | |
+| $url | File url. | string | Yes | |
 
-- **@return** → string → file url
+**# Return** (string) → file url
 
----
-
-**Get number of logs added in the current section.**
+### - Get number of logs added in the current section:
 
 ```php
-Logger:added();
+Logger::added();
 ```
 
-- **@return** → int → logs added in the current section
+**# Return** (int) → logs added in the current section
 
----
-
-**Display logger section.**
+### - Display logger section:
 
 ```php
-Logger:render();
+Logger::render();
 ```
 
-- **@return** → boolean true
+**# Return** (boolean true)
 
----
-
-**Reset parameters.**
+### - Reset parameters:
 
 ```php
-Logger:reset();
+Logger::reset();
 ```
 
-- **@return** → boolean true
+**# Return** (boolean true)
 
----
+## Quick Start
 
-### Usage
+To use this library with **Composer**:
+
+```php
+require __DIR__ . '/vendor/autoload.php';
+
+use Josantonius\Logger\Logger;
+```
+
+Or If you installed it **manually**, use it:
+
+```php
+require_once __DIR__ . '/Logger.php';
+require_once __DIR__ . '/Json.php';
+
+use Josantonius\Logger\Logger;
+```
+
+## Usage
 
 Example of use for this library:
 
-#### Basic example
+### - Basic example
 
 ```php
 <?php
@@ -206,7 +207,7 @@ Logger::save('RESPONSE', 800, 'msg', __LINE__, __FILE__);
 Logger::storeLogs();
 ```
 
-#### Advanced example
+### - Advanced example
 
 ```php
 <?php
@@ -250,15 +251,27 @@ printf('<script src="%s">', Logger::script('http://site.com/public/js/'));
 Logger::render();
 ```
 
-### Tests 
+## Tests 
 
-To run [tests](tests/Logger/Test) simply:
+To run [tests](tests) you just need [Composer](http://getcomposer.org/download/) and to execute the following:
 
     $ git clone https://github.com/Josantonius/PHP-Logger.git
     
     $ cd PHP-Logger
 
-    $ phpunit
+    $ composer install
+
+Run unit tests with [PHPUnit](https://phpunit.de/):
+
+    $ composer phpunit
+
+Run [PSR2](http://www.php-fig.org/psr/psr-2/) code standard tests with [PHPCS](https://github.com/squizlabs/PHP_CodeSniffer):
+
+    $ composer phpcs
+
+Run all previous tests:
+
+    $ composer tests
 
 ### ☑ TODO
 
