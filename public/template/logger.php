@@ -8,8 +8,8 @@
  * @link       https://github.com/Josantonius/PHP-Logger
  * @since      1.1.2
  */
-
 use Josantonius\Logger\Logger;
+
 ?>
 
 <div class="jst-logger jst-card-log">
@@ -17,10 +17,10 @@ use Josantonius\Logger\Logger;
     <div class="jst-logs">
 
         <?php foreach (Logger::get() as $number => $log) :
-            $type      = $log['type'];
-            $date      = $log['date'];
-            $hour      = $log['hour'];
-            $message   = $log['message'];
+            $type = $log['type'];
+            $date = $log['date'];
+            $hour = $log['hour'];
+            $message = $log['message'];
             $lowerType = strtolower($type);
 
             unset($log['type'], $log['date'], $log['hour'], $log['message']);

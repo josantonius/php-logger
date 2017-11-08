@@ -6,7 +6,6 @@
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
-         strict="true"
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="false"
@@ -25,7 +24,7 @@
         <server name='HTTP_REFERER'    value='https://www.google.es/' />
         <server name='REMOTE_PORT'     value='152' />
     </php>
-
+    
     <testsuites>
         <testsuite name="Test Suite">
             <directory>tests</directory>
@@ -37,4 +36,5 @@
             <directory>src</directory>
         </whitelist>
     </filter>
+
 </phpunit>

@@ -8,7 +8,6 @@
  * @link      https://github.com/Josantonius/PHP-Logger
  * @since     1.0.0
  */
-
 namespace Josantonius\Logger;
 
 use Josantonius\Json\Json;
@@ -25,7 +24,7 @@ class Logger
      *
      * @since 1.0.0
      *
-     * @var string $path
+     * @var string
      */
     protected static $path;
 
@@ -34,7 +33,7 @@ class Logger
      *
      * @since 1.0.0
      *
-     * @var string $filepath
+     * @var string
      */
     protected static $filepath;
 
@@ -43,7 +42,7 @@ class Logger
      *
      * @since 1.0.0
      *
-     * @var string $filename
+     * @var string
      */
     protected static $filename;
 
@@ -52,7 +51,7 @@ class Logger
      *
      * @since 1.0.0
      *
-     * @var array $log
+     * @var array
      */
     protected static $log;
 
@@ -61,7 +60,7 @@ class Logger
      *
      * @since 1.0.0
      *
-     * @var array $logs
+     * @var array
      */
     protected static $logs = null;
 
@@ -70,7 +69,7 @@ class Logger
      *
      * @since 1.0.0
      *
-     * @var int $logNumber
+     * @var int
      */
     protected static $logNumber;
 
@@ -79,7 +78,7 @@ class Logger
      *
      * @since 1.0.0
      *
-     * @var int $counterLogs
+     * @var int
      */
     protected static $counterLogs = 0;
 
@@ -88,7 +87,7 @@ class Logger
      *
      * @since 1.0.0
      *
-     * @var string $states
+     * @var string
      */
     protected static $states;
 
@@ -102,8 +101,6 @@ class Logger
      * @param int    $logNumber → maximum number of logs to save to file
      * @param string $ip        → if you want to get to another library
      * @param array  $states    → different states for logs
-     *
-     * @return void
      */
     public function __construct($path = null, $filename = null, $logNumber = 200, $ip = null, $states = null)
     {
@@ -124,14 +121,14 @@ class Logger
      *
      * @since 1.0.0
      *
-     * @param  string $type    → error type or warning
-     * @param  int    $code    → HTTP response status code
-     * @param  string $message → message
-     * @param  int    $line    → line from which the save is executed
-     * @param  string $file    → filepath from which the method is called
-     * @param  array  $data    → extra custom parameters
+     * @param string $type    → error type or warning
+     * @param int    $code    → HTTP response status code
+     * @param string $message → message
+     * @param int    $line    → line from which the save is executed
+     * @param string $file    → filepath from which the method is called
+     * @param array  $data    → extra custom parameters
      *
-     * @return boolean
+     * @return bool
      */
     public static function save($type, $code, $msg, $line, $file, $data = 0)
     {
@@ -139,7 +136,7 @@ class Logger
 
         $status = (isset(self::$states[$type])) ? self::$states[$type] : 0;
 
-        if (!$status || !self::$states['global']) {
+        if (! $status || ! self::$states['global']) {
             return false;
         }
 
@@ -163,9 +160,9 @@ class Logger
      *
      * @since 1.0.0
      *
-     * @uses Json::arrayToFile() → create JSON file from array
+     * @uses \Json::arrayToFile() → create JSON file from array
      *
-     * @return boolean
+     * @return bool
      */
     public static function store()
     {
@@ -173,6 +170,7 @@ class Logger
             self::validateLogsNumber();
             Json::arrayToFile(self::$logs, self::$filepath);
             self::$counterLogs = 0;
+
             return true;
         }
 
@@ -184,7 +182,7 @@ class Logger
      *
      * @since 1.1.2
      *
-     * @uses Json::fileToArray() → array from JSON file content
+     * @uses \Json::fileToArray() → array from JSON file content
      *
      * @return array → logs saved
      */
@@ -242,11 +240,11 @@ class Logger
      *
      * @since 1.1.2
      *
-     * @return boolean true
+     * @return bool true
      */
     public static function render()
     {
-        $path = dirname(dirname(__FILE__));
+        $path = dirname(__DIR__);
 
         require_once $path . '/public/template/logger.php';
 
@@ -258,16 +256,16 @@ class Logger
      *
      * @since 1.1.2
      *
-     * @return boolean true
+     * @return bool true
      */
     public static function reset()
     {
-        self::$path        = null;
-        self::$filepath    = null;
-        self::$filename    = null;
-        self::$logs        = null;
-        self::$logNumber   = null;
-        self::$states      = null;
+        self::$path = null;
+        self::$filepath = null;
+        self::$filename = null;
+        self::$logs = null;
+        self::$logNumber = null;
+        self::$states = null;
         self::$counterLogs = 0;
 
         return true;
@@ -277,8 +275,6 @@ class Logger
      * Method that will be called in case of to register shutdown.
      *
      * @since 1.0.0
-     *
-     * @return void
      */
     public function shutdown()
     {
@@ -300,7 +296,7 @@ class Logger
      */
     protected static function getLibraryVersion()
     {
-        $path     = rtrim(dirname(dirname(__FILE__)), '/') . '/';
+        $path = rtrim(dirname(__DIR__), '/') . '/';
         $composer = Json::fileToArray($path . 'composer.json');
 
         return isset($composer['version']) ? $composer['version'] : '1.1.2';
@@ -321,18 +317,18 @@ class Logger
     {
         $ext = ($type == 'script') ? 'js' : 'css';
 
-        $root = $_SERVER["DOCUMENT_ROOT"];
+        $root = $_SERVER['DOCUMENT_ROOT'];
 
-        $version = str_replace(".", "-", self::getLibraryVersion());
+        $version = str_replace('.', '-', self::getLibraryVersion());
 
         $path = rtrim($root . parse_url($pathUrl)['path'], '/') . '/';
 
-        if (!file_exists($toPath = $path . "$filename-$version.$ext")) {
-            if (!is_dir($path)) {
+        if (! file_exists($toPath = $path . "$filename-$version.$ext")) {
+            if (! is_dir($path)) {
                 mkdir($path, 0777, true);
             }
 
-            $path = rtrim(dirname(dirname(__FILE__)), '/') . '/';
+            $path = rtrim(dirname(__DIR__), '/') . '/';
             $from = $path . 'public/' . $ext . "/$filename.$ext";
             $file = file_get_contents($from);
 
@@ -348,12 +344,10 @@ class Logger
      * @since 1.1.2
      *
      * @param string $ip → user ip
-     *
-     * @return void
      */
     private function setServerInfo($ip)
     {
-        if (!isset($_SERVER['HTTP_REFERER'])) {
+        if (! isset($_SERVER['HTTP_REFERER'])) {
             $_SERVER['HTTP_REFERER'] = '';
         }
 
@@ -361,10 +355,10 @@ class Logger
 
         self::$log['user-ip'] = ($validate) ? $ip : $_SERVER['REMOTE_ADDR'];
 
-        self::$log['uri']        = $_SERVER['REQUEST_URI'];
-        self::$log['referer']    = $_SERVER['HTTP_REFERER'];
-        self::$log['port']       = $_SERVER['REMOTE_PORT'];
-        self::$log['server-ip']  = $_SERVER['SERVER_ADDR'];
+        self::$log['uri'] = $_SERVER['REQUEST_URI'];
+        self::$log['referer'] = $_SERVER['HTTP_REFERER'];
+        self::$log['port'] = $_SERVER['REMOTE_PORT'];
+        self::$log['server-ip'] = $_SERVER['SERVER_ADDR'];
         self::$log['user-agent'] = $_SERVER['HTTP_USER_AGENT'];
     }
 
@@ -373,23 +367,21 @@ class Logger
      *
      * @since 1.1.2
      *
-     * @param  string $type    → error type or warning
-     * @param  string $code    → HTTP response status code
-     * @param  string $message → message
-     * @param  int    $line    → maximum number of logs to save to file
-     * @param  string $file    → filepath from which the method is called
-     *
-     * @return void
+     * @param string $type    → error type or warning
+     * @param string $code    → HTTP response status code
+     * @param string $message → message
+     * @param int    $line    → maximum number of logs to save to file
+     * @param string $file    → filepath from which the method is called
      */
     private static function setLogInfo($type, $code, $msg, $line, $file)
     {
-        self::$log['type']    = $type;
-        self::$log['code']    = $code;
+        self::$log['type'] = $type;
+        self::$log['code'] = $code;
         self::$log['message'] = $msg;
-        self::$log['line']    = $line;
-        self::$log['file']    = $file;
-        self::$log['hour']    = date('H:i:s');
-        self::$log['date']    = date('Y-m-d');
+        self::$log['line'] = $line;
+        self::$log['file'] = $file;
+        self::$log['hour'] = date('H:i:s');
+        self::$log['date'] = date('Y-m-d');
     }
 
     /**
@@ -399,14 +391,12 @@ class Logger
      *
      * @param string $path     → path name to save file with logs
      * @param string $filename → json file name that will save the logs
-     *
-     * @return void
      */
     private function setFilePath($path, $filename)
     {
         $defaultPath = $_SERVER['DOCUMENT_ROOT'] . '/log/';
 
-        self::$path = (!is_null($path)) ? $path : $defaultPath;
+        self::$path = (! is_null($path)) ? $path : $defaultPath;
 
         self::$filename = $filename ? $filename . '.jsond' : 'logs.jsond';
 
@@ -419,39 +409,35 @@ class Logger
      * @since 1.1.2
      *
      * @param array $states → states for logs
-     *
-     * @return void
      */
     private function setStates($states)
     {
         $defaultStates = [
-            'global'   => true,
-            'success'  => true,
-            'join'     => true,
-            'info'     => true,
-            'warning'  => true,
-            'error'    => true,
-            'fatal'    => true,
-            'request'  => true,
+            'global' => true,
+            'success' => true,
+            'join' => true,
+            'info' => true,
+            'warning' => true,
+            'error' => true,
+            'fatal' => true,
+            'request' => true,
             'response' => true,
         ];
 
-        self::$states = (!is_null($states)) ? $states : $defaultStates;
+        self::$states = (! is_null($states)) ? $states : $defaultStates;
     }
 
     /**
      * Validate maximum logs number.
      *
      * @since 1.0.0
-     *
-     * @return void
      */
     private static function validateLogsNumber()
     {
         $logsCounter = count(self::$logs);
 
         if (self::$logNumber < $logsCounter) {
-            $logs     = array_reverse(self::$logs);
+            $logs = array_reverse(self::$logs);
             $conserve = self::$logNumber / 2;
 
             for ($i = 0; $i < $conserve; $i++) {
