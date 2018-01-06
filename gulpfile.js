@@ -25,9 +25,9 @@ var gulp         = require('gulp'),
 
 gulp.task('js', function () {
 
-    var file = 'public/js/source/logger.js',
+    var file = 'src/public/js/source/logger.js',
         min  = 'logger.min.js',
-        dest = 'public/js/',
+        dest = 'src/public/js/',
 
         notifyOptions = { 
 
@@ -43,10 +43,10 @@ gulp.task('js', function () {
 
 gulp.task('css', function () {
 
-    var main   = 'public/sass/logger.sass',
-        files  = 'public/sass/**/*.sass',
-        source = 'public/css/source/',
-        dest   = 'public/css/',
+    var main   = 'src/public/sass/logger.sass',
+        files  = 'src/public/sass/**/*.sass',
+        source = 'src/public/css/source/',
+        dest   = 'src/public/css/',
 
         sourcemapsOption = { 
 
@@ -107,12 +107,12 @@ gulp.task('css', function () {
 gulp.task('watch', function () {
 
     var sassFiles = [
-            'public/sass/**/*.sass',
-            'public/sass/logger.sass'
+            'src/public/sass/**/*.sass',
+            'src/public/sass/logger.sass'
         ],
 
         jsFiles  = [
-            'public/js/source/logger.js'
+            'src/public/js/source/logger.js'
         ];
 
     gulp.watch(jsFiles, ['js']);

@@ -1,12 +1,12 @@
 <?php
 /**
- * Php library to create logs easily and store them in Json format.
+ * PHP library to create logs easily and store them in Json format.
  *
- * @author     Josantonius - hello@josantonius.com
- * @copyright  Copyright (c)
- * @license    https://opensource.org/licenses/MIT - The MIT License (MIT)
- * @link       https://github.com/Josantonius/PHP-Logger
- * @since      1.1.2
+ * @author    Josantonius <hello@josantonius.com>
+ * @copyright 2017 - 2018 (c) Josantonius - PHP-Logger
+ * @license   https://opensource.org/licenses/MIT - The MIT License (MIT)
+ * @link      https://github.com/Josantonius/PHP-Logger
+ * @since     1.1.2
  */
 use Josantonius\Logger\Logger;
 

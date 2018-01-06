@@ -3,7 +3,7 @@
  * PHP library to create logs easily and store them in Json format.
  *
  * @author    Josantonius <hello@josantonius.com>
- * @copyright 2017 (c) Josantonius - PHP-Logger
+ * @copyright 2017 - 2018 (c) Josantonius - PHP-Logger
  * @license   https://opensource.org/licenses/MIT - The MIT License (MIT)
  * @link      https://github.com/Josantonius/PHP-Logger
  * @since     1.1.2
@@ -14,8 +14,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Tests class for Logger library.
- *
- * @since 1.1.2
  */
 final class LoggerTest extends TestCase
 {
@@ -30,8 +28,6 @@ final class LoggerTest extends TestCase
 
     /**
      * Set up.
-     *
-     * @since 1.1.2
      */
     public function setUp()
     {
@@ -46,14 +42,14 @@ final class LoggerTest extends TestCase
 
     /**
      * Tear down.
-     *
-     * @since 1.1.2
      */
     public function tearDown()
     {
         parent::tearDown();
 
-        $this->Logger->reset();
+        $logger = $this->Logger;
+
+        $logger::reset();
 
         if (file_exists($this->ROOT . '/log/logs.jsond')) {
             unlink($this->ROOT . '/log/logs.jsond');
@@ -67,29 +63,24 @@ final class LoggerTest extends TestCase
      */
     public function testIsInstanceOfLogger()
     {
-        $actual = $this->Logger;
-        $this->assertInstanceOf('Josantonius\Logger\Logger', $actual);
+        $this->assertInstanceOf('Josantonius\Logger\Logger', $this->Logger);
     }
 
     /**
      * Start logging.
-     *
-     * @since 1.1.2
      */
     public function testStartLogging()
     {
         $this->assertContains(
             'Josantonius\Logger\Logger',
             get_class(
-                new Logger()
+                new Logger
             )
         );
     }
 
     /**
      * Start logging with custom path.
-     *
-     * @since 1.1.2
      */
     public function testStartLoggingWithCustomPath()
     {
@@ -103,8 +94,6 @@ final class LoggerTest extends TestCase
 
     /**
      * Start logging with custom filename.
-     *
-     * @since 1.1.2
      */
     public function testStartLoggingWithCustomFilename()
     {
@@ -118,8 +107,6 @@ final class LoggerTest extends TestCase
 
     /**
      * Start logging with custom logs number.
-     *
-     * @since 1.1.2
      */
     public function testStartLoggingWithCustomLogsNumber()
     {
@@ -133,8 +120,6 @@ final class LoggerTest extends TestCase
 
     /**
      * Start logging with custom user IP.
-     *
-     * @since 1.1.2
      */
     public function testStartLoggingWithCustomUserIP()
     {
@@ -148,8 +133,6 @@ final class LoggerTest extends TestCase
 
     /**
      * Start logging deactivating some default states.
-     *
-     * @since 1.1.2
      */
     public function testStartLoggingDeactivatingSomeDefaultStates()
     {
@@ -175,8 +158,6 @@ final class LoggerTest extends TestCase
 
     /**
      * Start logging deactivating all default states.
-     *
-     * @since 1.1.2
      */
     public function testStartLoggingDeactivatingAllDefaultStates()
     {
@@ -202,8 +183,6 @@ final class LoggerTest extends TestCase
 
     /**
      * Start logging with custom states.
-     *
-     * @since 1.1.2
      */
     public function testStartLoggingWithCustomStates()
     {
@@ -225,67 +204,61 @@ final class LoggerTest extends TestCase
 
     /**
      * Reset parameters.
-     *
-     * @since 1.1.2
      */
     public function testResetParameters()
     {
-        $this->assertTrue($this->Logger->reset());
+        $logger = $this->Logger;
 
-        new Logger();
+        $this->assertTrue($logger::reset());
+
+        new Logger;
     }
 
     /**
      * Get number of logs added in the current section.
-     *
-     * @since 1.1.2
      */
     public function testAddedLogs()
     {
-        new Logger();
+         $logger = new Logger;
 
         $this->assertInternalType(
             'int',
-            $this->Logger->added()
+            $logger::added()
         );
     }
 
     /**
      * Get saved logs.
-     *
-     * @since 1.1.2
      */
     public function testGetSavedLogs()
     {
-        new Logger();
+        $logger = new Logger;
 
         $this->assertInternalType(
             'array',
-            $this->Logger->get()
+            $logger::get()
         );
 
-        $this->assertTrue($this->Logger->added() === 0);
+        $this->assertTrue($logger::added() === 0);
     }
 
     /**
      * Save logs with default states.
-     *
-     * @since 1.1.2
      */
     public function testSaveLogsWithDefaultStates()
     {
-        new Logger();
+        $logger = new Logger;
 
-        $log = $this->Logger->save('SUCCESS', 100, 'msg', __LINE__, __FILE__);
-        $log &= $this->Logger->save('JOIN', 200, 'msg', __LINE__, __FILE__);
-        $log &= $this->Logger->save('INFO', 300, 'msg', __LINE__, __FILE__);
-        $log &= $this->Logger->save('WARNING', 400, 'msg', __LINE__, __FILE__);
-        $log &= $this->Logger->save('ERROR', 500, 'msg', __LINE__, __FILE__);
-        $log &= $this->Logger->save('FATAL', 600, 'msg', __LINE__, __FILE__);
-        $log &= $this->Logger->save('REQUEST', 700, 'msg', __LINE__, __FILE__);
-        $log &= $this->Logger->save('RESPONSE', 800, 'msg', __LINE__, __FILE__);
+        $log = $logger::save('SUCCESS', 100, 'msg', __LINE__, __FILE__);
+        $log &= $logger::save('JOIN', 200, 'msg', __LINE__, __FILE__);
+        $log &= $logger::save('INFO', 300, 'msg', __LINE__, __FILE__);
+        $log &= $logger::save('WARNING', 400, 'msg', __LINE__, __FILE__);
+        $log &= $logger::save('ERROR', 500, 'msg', __LINE__, __FILE__);
+        $log &= $logger::save('FATAL', 600, 'msg', __LINE__, __FILE__);
+        $log &= $logger::save('REQUEST', 700, 'msg', __LINE__, __FILE__);
+        $log &= $logger::save('RESPONSE', 800, 'msg', __LINE__, __FILE__);
 
-        $this->assertInternalType('array', $logs = $this->Logger->get());
+        $this->assertInternalType('array', $logs = $logger::get());
 
         $this->assertTrue($logs[0]['type'] === 'success');
         $this->assertTrue($logs[1]['type'] === 'join');
@@ -293,13 +266,11 @@ final class LoggerTest extends TestCase
 
         $this->assertTrue($log === 1);
 
-        $this->assertTrue($this->Logger->added() === 8);
+        $this->assertTrue($logger::added() === 8);
     }
 
     /**
      * Save logs with custom states.
-     *
-     * @since 1.1.2
      */
     public function testSaveLogsWithCustomStates()
     {
@@ -311,21 +282,21 @@ final class LoggerTest extends TestCase
             'custom-4' => true,
         ];
 
-        new Logger($this->ROOT . '/log/', 'logs', 500, '58.80.84.44', $states);
+        $logger = new Logger($this->ROOT . '/log/', 'logs', 500, '58.80.84.44', $states);
 
-        $log = $this->Logger->save('CUSTOM-1', 100, 'msg', __LINE__, __FILE__);
-        $log &= $this->Logger->save('CUSTOM-2', 200, 'msg', __LINE__, __FILE__);
-        $log &= $this->Logger->save('CUSTOM-4', 400, 'msg', __LINE__, __FILE__);
+        $log = $logger::save('CUSTOM-1', 100, 'msg', __LINE__, __FILE__);
+        $log &= $logger::save('CUSTOM-2', 200, 'msg', __LINE__, __FILE__);
+        $log &= $logger::save('CUSTOM-4', 400, 'msg', __LINE__, __FILE__);
 
         $this->assertTrue($log === 1);
 
         $this->assertFalse(
-            $this->Logger->save('CUSTOM-3', 300, 'msg', __LINE__, __FILE__)
+            $logger::save('CUSTOM-3', 300, 'msg', __LINE__, __FILE__)
         );
 
-        $this->assertTrue($this->Logger->added() === 3);
+        $this->assertTrue($logger::added() === 3);
 
-        $this->assertInternalType('array', $logs = $this->Logger->get());
+        $this->assertInternalType('array', $logs = $logger::get());
 
         $this->assertTrue($logs[0]['type'] === 'custom-1');
         $this->assertTrue($logs[1]['type'] === 'custom-2');
@@ -334,12 +305,10 @@ final class LoggerTest extends TestCase
 
     /**
      * Save logs with custom parameters.
-     *
-     * @since 1.1.2
      */
     public function testSaveLogsWithCustomParams()
     {
-        new Logger();
+        $logger = new Logger;
 
         $params = [
             'id-user' => 68,
@@ -347,89 +316,83 @@ final class LoggerTest extends TestCase
             'city' => 'Seville',
         ];
 
-        $this->Logger->save('SUCCESS', 100, 'msg', __LINE__, __FILE__, $params);
+        $logger::save('SUCCESS', 100, 'msg', __LINE__, __FILE__, $params);
 
-        $this->assertInternalType('array', $logs = $this->Logger->get());
+        $this->assertInternalType('array', $logs = $logger::get());
 
         $this->assertTrue($logs[0]['type'] === 'success');
         $this->assertTrue($logs[0]['id-user'] === 68);
         $this->assertTrue($logs[0]['name-user'] === 'Joe');
         $this->assertTrue($logs[0]['city'] === 'Seville');
 
-        $this->assertTrue($this->Logger->added() === 1);
+        $this->assertTrue($logger::added() === 1);
     }
 
     /**
      * Save logs with custom states and without global state [FALSE].
-     *
-     * @since 1.1.2
      */
     public function testSaveLogsWithCustomStatesAndWithoutGlobal()
     {
-        new Logger($this->ROOT . '/log/', 'logs', 500, '58.80.84.44', []);
+        $logger = new Logger($this->ROOT . '/log/', 'logs', 500, '58.80.84.44', []);
 
         $this->assertFalse(
-            $this->Logger->save('CUSTOM-1', 300, 'msg', __LINE__, __FILE__)
+            $logger::save('CUSTOM-1', 300, 'msg', __LINE__, __FILE__)
         );
 
-        $this->assertTrue($this->Logger->added() === 0);
+        $this->assertTrue($logger::added() === 0);
     }
 
     /**
      * Store logs.
-     *
-     * @since 1.1.2
      */
     public function testStoreLogs()
     {
-        new Logger();
+        $logger = new Logger;
 
-        $this->Logger->save('SUCCESS', 100, 'msg', __LINE__, __FILE__);
-        $this->Logger->save('JOIN', 200, 'msg', __LINE__, __FILE__);
-        $this->Logger->save('INFO', 300, 'msg', __LINE__, __FILE__);
-        $this->Logger->save('WARNING', 400, 'msg', __LINE__, __FILE__);
-        $this->Logger->save('ERROR', 500, 'msg', __LINE__, __FILE__);
-        $this->Logger->save('FATAL', 600, 'msg', __LINE__, __FILE__);
-        $this->Logger->save('REQUEST', 700, 'msg', __LINE__, __FILE__);
-        $this->Logger->save('RESPONSE', 800, 'msg', __LINE__, __FILE__);
+        $logger::save('SUCCESS', 100, 'msg', __LINE__, __FILE__);
+        $logger::save('JOIN', 200, 'msg', __LINE__, __FILE__);
+        $logger::save('INFO', 300, 'msg', __LINE__, __FILE__);
+        $logger::save('WARNING', 400, 'msg', __LINE__, __FILE__);
+        $logger::save('ERROR', 500, 'msg', __LINE__, __FILE__);
+        $logger::save('FATAL', 600, 'msg', __LINE__, __FILE__);
+        $logger::save('REQUEST', 700, 'msg', __LINE__, __FILE__);
+        $logger::save('RESPONSE', 800, 'msg', __LINE__, __FILE__);
 
-        $this->assertInternalType('array', $logs = $this->Logger->get());
+        $this->assertInternalType('array', $logs = $logger::get());
 
         $this->assertTrue($logs[0]['type'] === 'success');
         $this->assertTrue($logs[1]['type'] === 'join');
         $this->assertTrue($logs[7]['type'] === 'response');
 
-        $this->assertTrue($this->Logger->added() === 8);
+        $this->assertTrue($logger::added() === 8);
 
-        $this->assertTrue($this->Logger->store());
+        $this->assertTrue($logger::store());
 
         $this->assertFileExists($this->ROOT . '/log/logs.jsond');
     }
 
     /**
      * Store logs when no logs have been saved.
-     *
-     * @since 1.1.2
      */
     public function testStoreNotSavedLogs()
     {
-        new Logger();
+        $logger = new Logger;
 
-        $this->assertTrue($this->Logger->added() === 0);
+        $this->assertTrue($logger::added() === 0);
 
-        $this->assertFalse($this->Logger->store());
+        $this->assertFalse($logger::store());
     }
 
     /**
      * Define directory for scripts and get url from file.
-     *
-     * @since 1.1.2
      */
     public function testLoadScript()
     {
+        $logger = $this->Logger;
+
         $this->assertContains(
             $this->JS . 'logger.min-',
-            $script = $this->Logger->script($this->JS)
+            $script = $logger::script($this->JS)
         );
 
         $this->assertFileExists($this->ROOT . '/js/' . basename($script));
@@ -437,14 +400,14 @@ final class LoggerTest extends TestCase
 
     /**
      * Define directory for styles and get url from file.
-     *
-     * @since 1.1.2
      */
     public function testLoadStyles()
     {
+        $logger = $this->Logger;
+
         $this->assertContains(
             $this->CSS . 'logger.min-',
-            $style = $this->Logger->style($this->CSS)
+            $style = $logger::style($this->CSS)
         );
 
         $this->assertFileExists($this->ROOT . '/css/' . basename($style));
@@ -452,22 +415,20 @@ final class LoggerTest extends TestCase
 
     /**
      * Store logs when no logs have been saved.
-     *
-     * @since 1.1.2
      */
     public function testRenderLogs()
     {
-        new Logger();
+        $logger = new Logger;
 
-        $this->Logger->save('SUCCESS', 100, 'msg', __LINE__, __FILE__);
-        $this->Logger->save('JOIN', 200, 'msg', __LINE__, __FILE__);
-        $this->Logger->save('INFO', 300, 'msg', __LINE__, __FILE__);
+        $logger::save('SUCCESS', 100, 'msg', __LINE__, __FILE__);
+        $logger::save('JOIN', 200, 'msg', __LINE__, __FILE__);
+        $logger::save('INFO', 300, 'msg', __LINE__, __FILE__);
 
-        printf('<link href="%s">', $this->Logger->style($this->CSS));
+        printf('<link href="%s">', $logger::style($this->CSS));
 
-        printf('<script src="%s">', $this->Logger->script($this->JS));
+        printf('<script src="%s">', $logger::script($this->JS));
 
-        $this->assertTrue($this->Logger->render());
+        $this->assertTrue($logger::render());
 
         $this->expectOutputRegex(
             '[<link href="http://josantonius.com/css/logger.min-*]'

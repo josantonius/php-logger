@@ -3,7 +3,7 @@
  * PHP library to create logs easily and store them in Json format.
  *
  * @author    Josantonius <hello@josantonius.com>
- * @copyright 2017 (c) Josantonius - PHP-Logger
+ * @copyright 2017 - 2018 (c) Josantonius - PHP-Logger
  * @license   https://opensource.org/licenses/MIT - The MIT License (MIT)
  * @link      https://github.com/Josantonius/PHP-Logger
  * @since     1.0.0
@@ -14,15 +14,11 @@ use Josantonius\Json\Json;
 
 /**
  * Logger handler.
- *
- * @since 1.0.0
  */
 class Logger
 {
     /**
      * Path to save logs.
-     *
-     * @since 1.0.0
      *
      * @var string
      */
@@ -31,16 +27,12 @@ class Logger
     /**
      * File to save logs.
      *
-     * @since 1.0.0
-     *
      * @var string
      */
     protected static $filepath;
 
     /**
      * Current file name that is saved in the log.
-     *
-     * @since 1.0.0
      *
      * @var string
      */
@@ -49,16 +41,12 @@ class Logger
     /**
      * Contents of the current log.
      *
-     * @since 1.0.0
-     *
      * @var array
      */
     protected static $log;
 
     /**
      * Array with logs.
-     *
-     * @since 1.0.0
      *
      * @var array
      */
@@ -67,16 +55,12 @@ class Logger
     /**
      * Maximum number of saved logs.
      *
-     * @since 1.0.0
-     *
      * @var int
      */
     protected static $logNumber;
 
     /**
      * Counter logs.
-     *
-     * @since 1.0.0
      *
      * @var int
      */
@@ -85,16 +69,12 @@ class Logger
     /**
      * Different states for logs.
      *
-     * @since 1.0.0
-     *
      * @var string
      */
     protected static $states;
 
     /**
      * Initiator for site debug management.
-     *
-     * @since 1.0.0
      *
      * @param string $path      → path name to save file with logs
      * @param string $filename  → json file name that will save the logs
@@ -118,8 +98,6 @@ class Logger
 
     /**
      * Save log line.
-     *
-     * @since 1.0.0
      *
      * @param string $type    → error type or warning
      * @param int    $code    → HTTP response status code
@@ -157,8 +135,6 @@ class Logger
 
     /**
      * Save logs to Json file.
-     *
-     * @since 1.0.0
      *
      * @uses \Json::arrayToFile() → create JSON file from array
      *
@@ -246,7 +222,7 @@ class Logger
     {
         $path = dirname(__DIR__);
 
-        require_once $path . '/public/template/logger.php';
+        require_once $path . '/src/public/template/logger.php';
 
         return true;
     }
@@ -273,8 +249,6 @@ class Logger
 
     /**
      * Method that will be called in case of to register shutdown.
-     *
-     * @since 1.0.0
      */
     public function shutdown()
     {
@@ -329,7 +303,7 @@ class Logger
             }
 
             $path = rtrim(dirname(__DIR__), '/') . '/';
-            $from = $path . 'public/' . $ext . "/$filename.$ext";
+            $from = $path . 'src/public/' . $ext . "/$filename.$ext";
             $file = file_get_contents($from);
 
             file_put_contents($toPath, $file);
@@ -429,8 +403,6 @@ class Logger
 
     /**
      * Validate maximum logs number.
-     *
-     * @since 1.0.0
      */
     private static function validateLogsNumber()
     {
