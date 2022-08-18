@@ -1,6 +1,7 @@
 # PHP Logger library
 
-[![Latest Stable Version](https://poser.pugx.org/josantonius/Logger/v/stable)](https://packagist.org/packages/josantonius/Logger) [![Latest Unstable Version](https://poser.pugx.org/josantonius/Logger/v/unstable)](https://packagist.org/packages/josantonius/Logger) [![License](https://poser.pugx.org/josantonius/Logger/license)](LICENSE) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a3b8254dfc74493fb162fc322e083f88)](https://www.codacy.com/app/Josantonius/PHP-Logger?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Josantonius/PHP-Logger&amp;utm_campaign=Badge_Grade) [![Total Downloads](https://poser.pugx.org/josantonius/Logger/downloads)](https://packagist.org/packages/josantonius/Logger) [![Travis](https://travis-ci.org/Josantonius/PHP-Logger.svg)](https://travis-ci.org/Josantonius/PHP-Logger) [![PSR2](https://img.shields.io/badge/PSR-2-1abc9c.svg)](http://www.php-fig.org/psr/psr-2/) [![PSR4](https://img.shields.io/badge/PSR-4-9b59b6.svg)](http://www.php-fig.org/psr/psr-4/) [![CodeCov](https://codecov.io/gh/Josantonius/PHP-Logger/branch/master/graph/badge.svg)](https://codecov.io/gh/Josantonius/PHP-Logger)
+[![Latest Stable Version](https://poser.pugx.org/josantonius/Logger/v/stable)](https://packagist.org/packages/josantonius/Logger)
+ [![License](https://poser.pugx.org/josantonius/Logger/license)](LICENSE)
 
 [Spanish version](README-ES.md)
 
@@ -15,11 +16,8 @@ Biblioteca php para crear logs fácilmente y almacenarlos en formato Json.
 - [Métodos disponibles](#métodos-disponibles)
 - [Uso](#uso)
 - [Tests](#tests)
-- [Tareas pendientes](#-tareas-pendientes)
-- [Contribuir](#contribuir)
-- [Repositorio](#repositorio)
+- [Patrocinar](#patrocinar)
 - [Licencia](#licencia)
-- [Copyright](#copyright)
 
 ---
 
@@ -27,31 +25,31 @@ Biblioteca php para crear logs fácilmente y almacenarlos en formato Json.
 
 Esta clase es soportada por versiones de **PHP 5.6** o superiores y es compatible con versiones de **HHVM 3.0** o superiores.
 
-## Instalación 
+## Instalación
 
 La mejor forma de instalar esta extensión es a través de [Composer](http://getcomposer.org/download/).
 
 Para instalar **PHP Logger library**, simplemente escribe:
 
-    $ composer require Josantonius/Logger
+    composer require Josantonius/Logger
 
 El comando anterior sólo instalará los archivos necesarios, si prefieres **descargar todo el código fuente** puedes utilizar:
 
-    $ composer require Josantonius/Logger --prefer-source
+    composer require Josantonius/Logger --prefer-source
 
 También puedes **clonar el repositorio** completo con Git:
 
-  $ git clone https://github.com/Josantonius/PHP-Logger.git
+  $ git clone <https://github.com/Josantonius/PHP-Logger.git>
 
 O **instalarlo manualmente**:
 
 [Descargar Logger.php](https://raw.githubusercontent.com/Josantonius/PHP-Logger/master/src/Logger.php):
 
-    $ wget https://raw.githubusercontent.com/Josantonius/PHP-Logger/master/src/Logger.php
+    wget https://raw.githubusercontent.com/Josantonius/PHP-Logger/master/src/Logger.php
 
 [Descargar Json.php](https://raw.githubusercontent.com/Josantonius/PHP-Json/master/src/Json.php):
 
-    $ wget https://raw.githubusercontent.com/Josantonius/PHP-Json/master/src/Json.php
+    wget https://raw.githubusercontent.com/Josantonius/PHP-Json/master/src/Json.php
 
 ## Imágenes
 
@@ -65,7 +63,7 @@ O **instalarlo manualmente**:
 
 Métodos disponibles en esta biblioteca:
 
-### - Iniciar manejo de logs en el  sitio:
+### - Iniciar manejo de logs en el  sitio
 
 ```php
 new Logger($path, $filename, $logNumber, $ip, $states);
@@ -81,7 +79,7 @@ Atributo | Descripción | Tipo | Requerido | Predeterminado
 
 **# Return** (void)
 
-### - Guardar log:
+### - Guardar log
 
 ```php
 Logger::save($type, $code, $msg, $line, $file, $data);
@@ -98,7 +96,7 @@ Atributo | Descripción | Tipo | Requerido | Predeterminado
 
 **# Return** (boolean)
 
-### - Guarda los registros en archivo JSON:
+### - Guarda los registros en archivo JSON
 
 ```php
 Logger::store();
@@ -106,7 +104,7 @@ Logger::store();
 
 **# Return** (boolean)
 
-### - Obtener logs guardados:
+### - Obtener logs guardados
 
 ```php
 Logger::get();
@@ -114,7 +112,7 @@ Logger::get();
 
 **# Return** (array) → logs guardados
 
-### - Definir directorio para scripts y obtener url del archivo:
+### - Definir directorio para scripts y obtener url del archivo
 
 ```php
 Logger::script($url);
@@ -126,7 +124,7 @@ Atributo | Descripción | Tipo | Requerido | Predeterminado
 
 **# Return** (string) → url del archivo
 
-### - Definir directorio para estilos y obtener url del archivo:
+### - Definir directorio para estilos y obtener url del archivo
 
 ```php
 Logger::style($url);
@@ -138,7 +136,7 @@ Atributo | Descripción | Tipo | Requerido | Predeterminado
 
 **# Return** (string) → url del archivo
 
-### - Obtener el número de logs guardados en la sección actual:
+### - Obtener el número de logs guardados en la sección actual
 
 ```php
 ::added();
@@ -154,7 +152,7 @@ Logger::render();
 
 **# Return** (boolean true)
 
-### - Restablecer parámetros:
+### - Restablecer parámetros
 
 ```php
 Logger::reset();
@@ -251,66 +249,40 @@ printf('<script src="%s">', Logger::script('http://site.com/public/js/'));
 Logger::render();
 ```
 
-## Tests 
+## Tests
 
 Para ejecutar las [pruebas](tests) necesitarás [Composer](http://getcomposer.org/download/) y seguir los siguientes pasos:
 
-    $ git clone https://github.com/Josantonius/PHP-Logger.git
+    git clone https://github.com/Josantonius/PHP-Logger.git
     
-    $ cd PHP-Logger
+    cd PHP-Logger
 
-    $ composer install
+    composer install
 
 Ejecutar pruebas unitarias con [PHPUnit](https://phpunit.de/):
 
-    $ composer phpunit
+    composer phpunit
 
 Ejecutar pruebas de estándares de código [PSR2](http://www.php-fig.org/psr/psr-2/) con [PHPCS](https://github.com/squizlabs/PHP_CodeSniffer):
 
-    $ composer phpcs
+    composer phpcs
 
 Ejecutar pruebas con [PHP Mess Detector](https://phpmd.org/) para detectar inconsistencias en el estilo de codificación:
 
-    $ composer phpmd
+    composer phpmd
 
 Ejecutar todas las pruebas anteriores:
 
-    $ composer tests
+    composer tests
 
-## ☑ Tareas pendientes
+## Patrocinar
 
-- [ ] Añadir nueva funcionalidad.
-- [ ] Mejorar pruebas.
-- [ ] Mejorar documentación.
-- [ ] Refactorizar código para las reglas de estilo de código deshabilitadas. Ver [phpmd.xml](phpmd.xml) y [.php_cs.dist](.php_cs.dist).
-
-## Contribuir
-
-Si deseas colaborar, puedes echar un vistazo a la lista de
-[issues](https://github.com/Josantonius/PHP-Logger/issues) o [tareas pendientes](#-tareas-pendientes).
-
-**Pull requests**
-
-* [Fork and clone](https://help.github.com/articles/fork-a-repo).
-* Ejecuta el comando `composer install` para instalar dependencias.
-  Esto también instalará las [dependencias de desarrollo](https://getcomposer.org/doc/03-cli.md#install).
-* Ejecuta el comando `composer fix` para estandarizar el código.
-* Ejecuta las [pruebas](#tests).
-* Crea una nueva rama (**branch**), **commit**, **push** y envíame un
-  [pull request](https://help.github.com/articles/using-pull-requests).
-
-## Repositorio
-
-La estructura de archivos de este repositorio se creó con [PHP-Skeleton](https://github.com/Josantonius/PHP-Skeleton).
+Si este proyecto te ayuda a reducir el tiempo de desarrollo,
+[puedes patrocinarme](https://github.com/josantonius/lang/es-ES/README.md#patrocinar)
+para apoyar mi trabajo :blush:
 
 ## Licencia
 
-Este proyecto está licenciado bajo **licencia MIT**. Consulta el archivo [LICENSE](LICENSE) para más información.
+Este repositorio tiene una licencia [MIT License](LICENSE).
 
-## Copyright
-
-2017 - 2018 Josantonius, [josantonius.com](https://josantonius.com/)
-
-Si te ha resultado útil, házmelo saber :wink:
-
-Puedes contactarme en [Twitter](https://twitter.com/Josantonius) o a través de mi [correo electrónico](mailto:hello@josantonius.com).
+Copyright © 2017-2022, [Josantonius](https://github.com/josantonius/lang/es-ES/README.md#contacto)

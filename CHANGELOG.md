@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.1.6 - 2022-08-18
+
+* The repository was archived.
+
 ## 1.1.5 - 2018-01-06
 
 * The tests were fixed.
@@ -35,7 +39,6 @@
 * Deleted `Logger/vendor` folder.
 
 * Changed `Josantonius\Logger\Test\LoggerTest` class to  `Josantonius\Logger\LoggerTest` class.
-
 
 ## 1.1.2 - 2017-10-16
 
